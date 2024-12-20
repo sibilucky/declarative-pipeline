@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying Docker container...'
-                    sh "docker run -d --name httpd-container -p 7070:80 docker.io/sibisam2301/my-httpd-server:latest"
+                    sh "docker run -d --name httpd-container -p 7071:80 docker.io/sibisam2301/my-httpd-server:latest"
                 }
             }
         }
