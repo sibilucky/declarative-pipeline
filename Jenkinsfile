@@ -16,7 +16,7 @@ pipeline {
                     checkout scmGit(
                         branches: [[name: '*/main']], 
                         extensions: [], 
-                        userRemoteConfigs: [[credentialsId: 'docker-credentials-id', url: 'https://github.com/sibilucky/dockerfile.git']]
+                        userRemoteConfigs: [[credentialsId: 'docker-credentials-id', url: 'https://github.com/sibilucky/declarative-pipeline.git']]
                     )
                 }
             }
@@ -54,13 +54,20 @@ pipeline {
             }
         }
     }
-
-    post {
-        failure {
-            echo "Pipeline failed. Check logs for errors."
-        }
+ post {
         success {
-            echo "Pipeline completed successfully."
+            echo 'Pipeline executed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
+
+        always {
+            // Cleanup - stop and remove the Docker container if it exists
+            echo 'Cleaning up Docker container...'
+            sh 'docker rm -f httpd-container || true'
         }
     }
 }
+   
