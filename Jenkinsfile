@@ -54,20 +54,12 @@ pipeline {
             }
         }
     }
- post {
-        success {
-            echo 'Pipeline executed successfully!'
-        }
-
+    post {
         failure {
-            echo 'Pipeline failed. Please check the logs.'
+            echo "Pipeline failed. Check logs for errors."
         }
-
-        always {
-            // Cleanup - stop and remove the Docker container if it exists
-            echo 'Cleaning up Docker container...'
-            sh 'docker rm -f httpd-container || true'
+        success {
+            echo "Pipeline completed successfully."
         }
     }
 }
-   
